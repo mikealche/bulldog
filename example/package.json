@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "bulldog": "echo 'ja'",
-    "launch": "lib"
+    "launch": "lib",
+    "dev": "lib",
+    "watch": "nodemon --watch \"../lib/dist/**\" --watch \"./**\" --ext \"js,ts\" --exec \"yarn dev\""
   },
   "keywords": [],
   "author": "Mike Alche",
