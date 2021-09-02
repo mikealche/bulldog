@@ -1,7 +1,8 @@
 import { RequestHandler, Express } from "express";
+import { join } from "path";
 import fsRoutes, { FsRoute } from "./fs-routes";
-
-const routes: FsRoute[] = fsRoutes("routes");
+import mkdirp from "mkdirp";
+import fastGlob from "fast-glob";
 
 const wrapResolver = (resolver: Function) => {
   const requestHandler: RequestHandler = async (req, res) => {
@@ -16,7 +17,9 @@ const wrapResolver = (resolver: Function) => {
   return requestHandler;
 };
 
-const registerRoutesFromFileSystem = (app: Express) => {
+const routes: FsRoute[] = fsRoutes("routes");
+
+const registerRoutesFromFileSystem = async (app: Express) => {
   for (const route of routes) {
     const resolver = require(route.path).default;
     if (resolver.middleware) {
