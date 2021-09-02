@@ -7,7 +7,7 @@ I also play around with the way that Blitz.js uses in order to type the resolver
 
 ### How to use it
 
-`cd` into the `lib` folder and run `npm link` and then `yarn watch`
+`cd` into the `lib` folder and run `yarn watch` and then `npm link`
 
 Then `cd` into the example folder and run `npm link lib` and then `yarn watch` 
 

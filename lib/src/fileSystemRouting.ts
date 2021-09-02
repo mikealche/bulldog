@@ -9,7 +9,6 @@ const wrapResolver = (resolver: Function) => {
       const response = await resolver({ ...req.params, ...req.body });
       res.json(response);
     } catch (err) {
-      console.log(err);
       //@ts-ignore
       res.sendStatus(500).send(err.message);
     }
@@ -19,9 +18,7 @@ const wrapResolver = (resolver: Function) => {
 
 const registerRoutesFromFileSystem = (app: Express) => {
   for (const route of routes) {
-    console.log(route);
     const resolver = require(route.path).default;
-    console.log(typeof resolver);
     if (resolver.middleware) {
       app.get(
         `${route.route.toLowerCase()}`,
