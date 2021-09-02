@@ -2,19 +2,19 @@ import * as Yup from "yup";
 
 export type FunctionType<T extends Yup.ObjectSchema<any, any, any, any>, R> = (
   params: Yup.Asserts<T>
-) => any;
+) => R;
 
-const pipe = <T extends Yup.ObjectSchema<any, any, any, any>>(
+const pipe = <T extends Yup.ObjectSchema<any, any, any, any>, R>(
   yupSchema: T,
-  func: FunctionType<T, any>
+  func: FunctionType<T, R>
 ) => {
-  return async (params: any) => {
+  return (params: Yup.Asserts<T>): R => {
     //@ts-ignore
     const isValid = yupSchema.isValidSync(params);
     if (isValid) {
       return func(params);
     } else {
-      return "is not valid";
+      throw new Error("Invalid params");
     }
   };
 };
